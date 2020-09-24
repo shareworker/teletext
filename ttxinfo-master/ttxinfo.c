@@ -26,7 +26,7 @@ static uint16_t read_be16(const uint8_t *bytes) {  //阅读两个字节
 static void parse_ttx(const uint8_t *ttx, size_t size)
 {
     TTX_PRINTF("Got teletext packet of size %zu\n", size);
-    if(ttx[0] < TTX_EBU_DATA_ID_MIN || ttx[0] > TTX_EBU_DATA_ID_MAX)
+    if(ttx[0] < TTX_EBU_DATA_ID_MIN || ttx[0] > TTX_EBU_DATA_ID_MAX)   //数据标志符，必须等于0x10-0x1f
     {
         TTX_PRINTF("Data identifier 0x%hhx is not EBU Teletext.\n", ttx[0]);
         return;
@@ -39,7 +39,7 @@ static void parse_ttx(const uint8_t *ttx, size_t size)
             ", framing_code = 0x%hhx, magazine_and_packet_address = 0x%hhx%hhx"
             "\n",
             ttx_data_unit[0],  //data_unit_id
-            ttx_data_unit[2] & 0x20, // 第三个字节是时钟同步
+            ttx_data_unit[2] & 0x20,
             ttx_data_unit[2] & 0x1f,
             ttx_data_unit[3],   //第四个字节是成帧码
             ttx_data_unit[4], ttx_data_unit[5]

@@ -25,11 +25,11 @@ int main(int argc, char *argv[])
 	uint8_t buf[PLEN];
 	while (fread(buf, PLEN,1,stdin)>0) {
 		uint8_t data_unit_id=buf[0]; 
-		uint8_t data_unit_len=buf[1]; //PES包数据长度
-		if ((data_unit_id!=0x02) && (data_unit_id!=0x03)) continue; //排除EBU teletext数据
+		uint8_t data_unit_len=buf[1]; 
+		if ((data_unit_id!=0x02) && (data_unit_id!=0x03)) continue; 
 		if (data_unit_len!=0x2c) continue;
 
-		uint8_t line=buf[2];  //时钟同步
+		uint8_t line=buf[2]; 
 		uint8_t framing_code=buf[3];  //成帧码
 		
 		uint8_t packet[42]; //数据包数据
